@@ -1,20 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-item>
+        <ion-input 
+          [(ngModel)]="inputText" 
+          label="Text input" 
+          placeholder="Enter text">
+        </ion-input>
+      </ion-item>
+      <ion-button (click)="guardarEnLocalStorage()">
+        Guardar en LocalStorage
+      </ion-button>
+      <h2>Valor guardado desde localStorage: {{ guardado }}</h2>
+
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    @for (item of items;track item.id){
+  @for (item of datos;track item.id){
 
     <ion-card>
       <ion-card-header>
@@ -28,5 +30,4 @@
     </ion-card>
     }
 
-  </div>
 </ion-content>

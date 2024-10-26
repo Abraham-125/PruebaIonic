@@ -7,24 +7,30 @@ import { HomeService } from './api/home.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  inputText: string = '';
+  items: any;
+  datos: any;
+  guardado: string = '';
 
-  items:any;
+  constructor(private apiService: HomeService) {}
 
-  constructor(
-    private apiService: HomeService
-  ) {}
-
-  ngOnInit(): void {
-    this.apiService.obtenerDatos().subscribe(
-      {
-        next:(respApi:any) => {
-          this.items = respApi
-        },
-        error:(errorApi) => {
-          console.error(errorApi)
-        }
-      }
-    )
+  guardarEnLocalStorage() {
+    localStorage.setItem('inputValue', this.inputText);
+    this.guardado = this.inputText; 
   }
 
+
+  ngOnInit(): void {
+    this.apiService.obtenerDatos().subscribe({
+      next: (respApi: any) => {
+        this.items = respApi;
+        localStorage.setItem('DATOS', JSON.stringify(respApi));
+        this.datos = localStorage.getItem('DATOS');
+        this.datos = JSON.parse(this.datos);
+      },
+      error: (errorApi) => {
+        console.error(errorApi);
+      }
+    });
+  }
 }
